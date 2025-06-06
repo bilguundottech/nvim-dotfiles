@@ -53,24 +53,22 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
--- Trouble
-
-vim.keymap.set('n', '<leader>xx', function()
-  require('trouble').toggle()
-end, { desc = 'Toggle Diagnostic in the Current File' })
-vim.keymap.set('n', '<leader>xw', function()
-  require('trouble').toggle 'workspace_diagnostics'
-end, { desc = 'Toggle Diagnostic in the Workspace' })
-vim.keymap.set('n', '<leader>xd', function()
-  require('trouble').toggle 'document_diagnostics'
-end, { desc = 'Toggle Diagnostic in the Document' })
-vim.keymap.set('n', '<leader>xq', function()
-  require('trouble').toggle 'quickfix'
-end, { desc = 'Toggle Quickfix' })
-vim.keymap.set('n', '<leader>xl', function()
-  require('trouble').toggle 'loclist'
-end, { desc = "Toggle Items from the Window's Location List" })
-vim.keymap.set('n', 'gR', function()
-  require('trouble').toggle 'lsp_references'
-end, { desc = 'References of the Word under the Cursor from the Builtin LSP Client' })
 -- vim: ts=2 sts=2 sw=2 et
+
+vim.api.nvim_create_user_command('FormatDisable', function(args)
+  if args.bang then
+    -- FormatDisable! will disable formatting just for this buffer
+    vim.b.disable_autoformat = true
+  else
+    vim.g.disable_autoformat = true
+  end
+end, {
+  desc = 'Disable autoformat-on-save',
+  bang = true,
+})
+vim.api.nvim_create_user_command('FormatEnable', function()
+  vim.b.disable_autoformat = false
+  vim.g.disable_autoformat = false
+end, {
+  desc = 'Re-enable autoformat-on-save',
+})

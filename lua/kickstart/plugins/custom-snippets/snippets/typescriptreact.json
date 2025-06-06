@@ -1,0 +1,12 @@
+{
+	"propTypes": {
+		"prefix": "prt",
+		"body": "type $1 = {\n\t$2\n}",
+		"description": "Creates empty propTypes declaration"
+	},
+	"reactFunctionComponent": {
+		"prefix": "rfc",
+		"body": "export const ${TM_FILENAME_BASE}:React.FC = () => {\n\treturn (\n\t\t<div>\n\t\t\t$0\n\t\t</div>\n\t)\n}",
+		"description": "Creates a React functional component without PropTypes"
+	}
+}
